@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Bell, Search, Globe, ChevronDown } from 'lucide-react';
+import { Bell, Globe, ChevronDown } from 'lucide-react';
 import { useTranslation, useLocale } from './LanguageProvider';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -37,24 +37,8 @@ export function Header() {
   }).format(new Date());
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 flex-shrink-0 items-center gap-x-4 border-b border-slate-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
-      <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-        <form className="relative flex flex-1" action="#" method="GET">
-          <label htmlFor="search-field" className="sr-only">
-            Search
-          </label>
-          <Search
-            className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-slate-400"
-            aria-hidden="true"
-          />
-          <input
-            id="search-field"
-            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-slate-900 placeholder:text-slate-400 focus:ring-0 sm:text-sm bg-transparent outline-none"
-            placeholder={dict.header.search}
-            type="search"
-            name="search"
-          />
-        </form>
+    <header className="sticky top-0 z-10 flex h-16 flex-shrink-0 items-center gap-x-4 border-b border-slate-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 justify-end">
+      <div className="flex gap-x-4 self-stretch lg:gap-x-6">
         <div className="flex items-center gap-x-4 lg:gap-x-6">
           <div className="relative flex items-center gap-x-2 border-r border-slate-200 pr-4" ref={langRef}>
              <button
