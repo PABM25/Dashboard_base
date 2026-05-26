@@ -1,6 +1,7 @@
 'use client';
 
-import { Bell, Search, Globe } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Bell, Search, Globe, ChevronDown } from 'lucide-react';
 import { useTranslation, useLocale } from './LanguageProvider';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -9,11 +10,24 @@ export function Header() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const [isLangOpen, setIsLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
 
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value;
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setIsLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [langRef]);
+
+  const handleLanguageChange = (newLocale: string) => {
+    if (newLocale === locale) return;
     const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
     router.push(newPath);
+    setIsLangOpen(false);
   };
 
   const currentDate = new Intl.DateTimeFormat(locale === 'es' ? 'es-ES' : 'en-US', {
@@ -42,16 +56,32 @@ export function Header() {
           />
         </form>
         <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <div className="flex items-center gap-x-2 border-r border-slate-200 pr-4">
-             <Globe className="h-4 w-4 text-slate-400" />
-             <select
-               value={locale}
-               onChange={handleLanguageChange}
-               className="bg-transparent border-none text-sm font-medium text-slate-700 outline-none cursor-pointer hover:text-slate-900"
+          <div className="relative flex items-center gap-x-2 border-r border-slate-200 pr-4" ref={langRef}>
+             <button
+               onClick={() => setIsLangOpen(!isLangOpen)}
+               className="flex items-center gap-x-1.5 text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors focus:outline-none"
              >
-               <option value="en">EN</option>
-               <option value="es">ES</option>
-             </select>
+               <Globe className="h-4 w-4 text-slate-400" />
+               <span className="uppercase">{locale}</span>
+               <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+             </button>
+
+             {isLangOpen && (
+               <div className="absolute top-full right-4 mt-2 w-32 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50 py-1">
+                 <button
+                   onClick={() => handleLanguageChange('en')}
+                   className={`block w-full text-left px-4 py-2 text-sm transition-colors ${locale === 'en' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-slate-700 hover:bg-slate-50'}`}
+                 >
+                   English
+                 </button>
+                 <button
+                   onClick={() => handleLanguageChange('es')}
+                   className={`block w-full text-left px-4 py-2 text-sm transition-colors ${locale === 'es' ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-slate-700 hover:bg-slate-50'}`}
+                 >
+                   Español
+                 </button>
+               </div>
+             )}
           </div>
           <button type="button" className="-m-2.5 p-2.5 text-slate-400 hover:text-slate-500">
             <span className="sr-only">{dict.header.viewNotifications}</span>
