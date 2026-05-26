@@ -124,7 +124,7 @@ export default function Inventory() {
             <p className="text-sm text-slate-500">{dict.inventory.inventoryDistributionDesc}</p>
           </div>
           <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minHeight={0} minWidth={0}>
               <PieChart>
                 <Pie
                   data={categoryData}
@@ -155,7 +155,7 @@ export default function Inventory() {
             <p className="text-sm text-slate-500">{dict.inventory.warehouseCapacityDesc}</p>
           </div>
           <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minHeight={0} minWidth={0}>
               <BarChart data={warehouseData} layout="vertical" margin={{ top: 10, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
                 <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} domain={[0, 100]} tickFormatter={(val) => `${val}%`} />

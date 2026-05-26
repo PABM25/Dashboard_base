@@ -154,5 +154,18 @@
     "emailAlerts": "Email Alerts",
     "smsAlerts": "SMS Alerts",
     "weeklyReports": "Weekly Reports"
+  },
+  "help": {
+    "title": "Help & Support",
+    "subtitle": "Find answers to common questions and get in touch.",
+    "faq": "Frequently Asked Questions",
+    "contact": "Contact Support",
+    "contactDesc": "Can't find what you need? Send us a message.",
+    "faqQ1": "How do I reset my password?",
+    "faqA1": "You can reset your password from the login screen by clicking 'Forgot Password'.",
+    "faqQ2": "How do I add a new user?",
+    "faqA2": "Navigate to the HR section and click 'Add Employee'.",
+    "faqQ3": "Where can I download my sales report?",
+    "faqA3": "Go to the Sales module and click the 'Export Data' button at the top."
   }
 }

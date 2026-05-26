@@ -126,7 +126,7 @@ export default function HR() {
             <p className="text-sm text-slate-500">{dict.hr.headcountByDepartmentDesc}</p>
           </div>
           <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minHeight={0} minWidth={0}>
               <BarChart data={deptData} layout="vertical" margin={{ top: 10, right: 30, left: 40, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
                 <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} />
@@ -148,7 +148,7 @@ export default function HR() {
             <p className="text-sm text-slate-500">{dict.hr.genderDistributionDesc}</p>
           </div>
           <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="100%" minHeight={0} minWidth={0}>
               <PieChart>
                 <Pie
                   data={diversityData}
