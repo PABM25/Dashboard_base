@@ -154,5 +154,18 @@
     "emailAlerts": "Alertas por Correo",
     "smsAlerts": "Alertas SMS",
     "weeklyReports": "Reportes Semanales"
+  },
+  "help": {
+    "title": "Ayuda y Soporte",
+    "subtitle": "Encuentra respuestas a preguntas comunes y ponte en contacto.",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contactar Soporte",
+    "contactDesc": "¿No encuentras lo que necesitas? Envíanos un mensaje.",
+    "faqQ1": "¿Cómo restablezco mi contraseña?",
+    "faqA1": "Puedes restablecer tu contraseña desde la pantalla de inicio de sesión haciendo clic en 'Olvidé mi contraseña'.",
+    "faqQ2": "¿Cómo añado un nuevo usuario?",
+    "faqA2": "Navega a la sección de RRHH y haz clic en 'Añadir Empleado'.",
+    "faqQ3": "¿Dónde puedo descargar mi reporte de ventas?",
+    "faqA3": "Ve al módulo de Ventas y haz clic en el botón 'Exportar Datos' en la parte superior."
   }
 }

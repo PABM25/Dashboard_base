@@ -1,0 +1,11 @@
+
+> dashboard@0.1.0 dev /app
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+✓ Ready in 1083ms
+
+ GET /en/help 200 in 2.7s (next.js: 1742ms, proxy.ts: 563ms, generate-params: 654ms, application-code: 440ms)
+ GET /en/help 200 in 274ms (next.js: 53ms, proxy.ts: 14ms, generate-params: 24ms, application-code: 206ms)
