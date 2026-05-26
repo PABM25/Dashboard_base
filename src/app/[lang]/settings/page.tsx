@@ -42,7 +42,7 @@ export default function Settings() {
                   alt="User avatar"
                 />
                 <button type="button" className="px-4 py-2 bg-white border border-slate-200 text-sm font-medium rounded-lg text-slate-700 hover:bg-slate-50">
-                  Change Photo
+                  {locale === 'es' ? 'Cambiar Foto' : 'Change Photo'}
                 </button>
               </div>
 
