@@ -43,12 +43,21 @@ export default function Inventory() {
   const dict = useTranslation();
   const locale = useLocale();
   const [scanning, setScanning] = useState(false);
+  const [addingStock, setAddingStock] = useState(false);
 
   const handleScan = () => {
     setScanning(true);
     setTimeout(() => {
       setScanning(false);
       alert(locale === 'es' ? 'Artículo escaneado' : 'Item scanned');
+    }, 1000);
+  };
+
+  const handleAddStock = () => {
+    setAddingStock(true);
+    setTimeout(() => {
+      setAddingStock(false);
+      alert(locale === 'es' ? 'Stock añadido exitosamente' : 'Stock added successfully');
     }, 1000);
   };
 
@@ -67,8 +76,12 @@ export default function Inventory() {
           >
             {scanning ? (locale === 'es' ? 'Escaneando...' : 'Scanning...') : dict.inventory.scanItem}
           </button>
-          <button className="px-4 py-2 bg-indigo-600 border border-transparent text-sm font-medium rounded-lg text-white hover:bg-indigo-700">
-            {dict.inventory.addStock}
+          <button
+            onClick={handleAddStock}
+            disabled={addingStock}
+            className="px-4 py-2 bg-indigo-600 border border-transparent text-sm font-medium rounded-lg text-white hover:bg-indigo-700 disabled:opacity-50"
+          >
+            {addingStock ? (locale === 'es' ? 'Añadiendo...' : 'Adding...') : dict.inventory.addStock}
           </button>
         </div>
       </div>

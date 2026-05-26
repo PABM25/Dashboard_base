@@ -108,5 +108,24 @@
     "tableDepartment": "Department",
     "tableType": "Type",
     "tableDate": "Date"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your profile preferences and account settings.",
+    "profile": "Base Profile",
+    "profileDesc": "Update your photo and personal details here.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "role": "Role",
+    "timezone": "Timezone",
+    "language": "Language",
+    "saveChanges": "Save Changes",
+    "savedSuccess": "Changes saved successfully",
+    "notifications": "Notifications",
+    "notificationsDesc": "Choose what updates you want to receive.",
+    "emailAlerts": "Email Alerts",
+    "smsAlerts": "SMS Alerts",
+    "weeklyReports": "Weekly Reports"
   }
 }
