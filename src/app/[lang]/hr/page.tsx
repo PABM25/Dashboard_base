@@ -44,12 +44,21 @@ export default function HR() {
   const dict = useTranslation();
   const locale = useLocale();
   const [viewing, setViewing] = useState(false);
+  const [addingEmployee, setAddingEmployee] = useState(false);
 
   const handleView = () => {
     setViewing(true);
     setTimeout(() => {
       setViewing(false);
       alert(locale === 'es' ? 'Abriendo directorio...' : 'Opening directory...');
+    }, 1000);
+  };
+
+  const handleAddEmployee = () => {
+    setAddingEmployee(true);
+    setTimeout(() => {
+      setAddingEmployee(false);
+      alert(locale === 'es' ? 'Nuevo empleado añadido' : 'New employee added');
     }, 1000);
   };
 
@@ -68,8 +77,12 @@ export default function HR() {
           >
             {viewing ? (locale === 'es' ? 'Cargando...' : 'Loading...') : dict.hr.viewDirectory}
           </button>
-          <button className="px-4 py-2 bg-indigo-600 border border-transparent text-sm font-medium rounded-lg text-white hover:bg-indigo-700">
-            {dict.hr.addEmployee}
+          <button
+            onClick={handleAddEmployee}
+            disabled={addingEmployee}
+            className="px-4 py-2 bg-indigo-600 border border-transparent text-sm font-medium rounded-lg text-white hover:bg-indigo-700 disabled:opacity-50"
+          >
+            {addingEmployee ? (locale === 'es' ? 'Añadiendo...' : 'Adding...') : dict.hr.addEmployee}
           </button>
         </div>
       </div>

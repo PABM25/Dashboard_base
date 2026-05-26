@@ -108,5 +108,24 @@
     "tableDepartment": "Departamento",
     "tableType": "Tipo",
     "tableDate": "Fecha"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "subtitle": "Gestiona tus preferencias de perfil y ajustes de cuenta.",
+    "profile": "Perfil Base",
+    "profileDesc": "Actualiza tu foto y detalles personales aquí.",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "timezone": "Zona Horaria",
+    "language": "Idioma",
+    "saveChanges": "Guardar Cambios",
+    "savedSuccess": "Cambios guardados exitosamente",
+    "notifications": "Notificaciones",
+    "notificationsDesc": "Elige qué actualizaciones quieres recibir.",
+    "emailAlerts": "Alertas por Correo",
+    "smsAlerts": "Alertas SMS",
+    "weeklyReports": "Reportes Semanales"
   }
 }

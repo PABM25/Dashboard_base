@@ -1,5 +1,5 @@
 
-> dashboard@0.1.0 start
+> dashboard@0.1.0 start /app
 > next start
 
 ⨯ Failed to start server
@@ -8,7 +8,7 @@ Error: listen EADDRINUSE: address already in use :::3000
     at new Promise (<anonymous>) {
   code: 'EADDRINUSE',
   errno: -98,
-  syscall: 'listen',
-  address: '::',
-  port: 3000
-}
+  syscall: HEAD /en/settings 200 in 118ms (next.js: 33ms, proxy.ts: 11ms, generate-params: 19ms, application-code: 75ms)
+ GET /en/settings 200 in 126ms (next.js: 33ms, proxy.ts: 7ms, generate-params: 24ms, application-code: 87ms)
+ ELIFECYCLE  Command failed.
+[?25h
