@@ -13,7 +13,7 @@ import {
 import { cn } from '@/lib/utils';
 import { useTranslation, useLocale } from './LanguageProvider';
 
-export function Sidebar() {
+export function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
   const dict = useTranslation();
   const locale = useLocale();
@@ -46,6 +46,7 @@ export function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
+                onClick={onClose}
                 className={cn(
                   isActive
                     ? 'bg-slate-800 text-white'
@@ -72,6 +73,7 @@ export function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
+                onClick={onClose}
                 className="group flex items-center rounded-md px-2 py-2 text-sm font-medium text-slate-300 hover:bg-slate-800/50 hover:text-white transition-colors"
               >
                 <item.icon

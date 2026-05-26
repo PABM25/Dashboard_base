@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-import { Sidebar } from "@/components/Sidebar";
-import { Header } from "@/components/Header";
 import { getDictionary } from "@/dictionaries";
 import { Locale } from "@/dictionaries";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { AppLayout } from "@/components/AppLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,15 +31,9 @@ export default async function RootLayout({
     <html lang={lang} className="h-full bg-slate-50">
       <body className={`${inter.className} h-full overflow-hidden flex`}>
         <LanguageProvider dictionary={dictionary} locale={lang}>
-          <Sidebar />
-          <div className="flex flex-1 flex-col overflow-hidden">
-            <Header />
-            <main className="flex-1 overflow-y-auto bg-slate-50/50 p-6">
-              <div className="mx-auto max-w-7xl">
-                {children}
-              </div>
-            </main>
-          </div>
+          <AppLayout>
+            {children}
+          </AppLayout>
         </LanguageProvider>
       </body>
     </html>

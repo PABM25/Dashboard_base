@@ -5,7 +5,9 @@ import { Bell, Globe, ChevronDown } from 'lucide-react';
 import { useTranslation, useLocale } from './LanguageProvider';
 import { useRouter, usePathname } from 'next/navigation';
 
-export function Header() {
+import { Menu } from 'lucide-react';
+
+export function Header({ onMenuClick }: { onMenuClick?: () => void }) {
   const dict = useTranslation();
   const locale = useLocale();
   const router = useRouter();
@@ -37,8 +39,18 @@ export function Header() {
   }).format(new Date());
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 flex-shrink-0 items-center gap-x-4 border-b border-slate-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 justify-end">
-      <div className="flex gap-x-4 self-stretch lg:gap-x-6">
+    <header className="sticky top-0 z-10 flex h-16 flex-shrink-0 items-center gap-x-4 border-b border-slate-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 justify-between lg:justify-end">
+      {/* Mobile menu button */}
+      <button
+        type="button"
+        onClick={onMenuClick}
+        className="p-2.5 text-slate-700 lg:hidden hover:bg-slate-100 rounded-md"
+      >
+        <span className="sr-only">Open sidebar</span>
+        <Menu className="h-6 w-6" aria-hidden="true" />
+      </button>
+
+      <div className="flex gap-x-4 self-stretch lg:gap-x-6 items-center">
         <div className="flex items-center gap-x-4 lg:gap-x-6">
           <div className="relative flex items-center gap-x-2 border-r border-slate-200 pr-4" ref={langRef}>
              <button
