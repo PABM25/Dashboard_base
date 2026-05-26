@@ -11,21 +11,24 @@ import {
   HelpCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const navigation = [
-  { name: 'Overview', href: '/', icon: LayoutDashboard },
-  { name: 'Sales', href: '/sales', icon: TrendingUp },
-  { name: 'Inventory', href: '/inventory', icon: Package },
-  { name: 'HR', href: '/hr', icon: Users },
-];
-
-const secondaryNavigation = [
-  { name: 'Settings', href: '/settings', icon: Settings },
-  { name: 'Help', href: '/help', icon: HelpCircle },
-];
+import { useTranslation, useLocale } from './LanguageProvider';
 
 export function Sidebar() {
   const pathname = usePathname();
+  const dict = useTranslation();
+  const locale = useLocale();
+
+  const navigation = [
+    { name: dict.navigation.overview, href: `/${locale}`, icon: LayoutDashboard },
+    { name: dict.navigation.sales, href: `/${locale}/sales`, icon: TrendingUp },
+    { name: dict.navigation.inventory, href: `/${locale}/inventory`, icon: Package },
+    { name: dict.navigation.hr, href: `/${locale}/hr`, icon: Users },
+  ];
+
+  const secondaryNavigation = [
+    { name: dict.navigation.settings, href: `/${locale}/settings`, icon: Settings },
+    { name: dict.navigation.help, href: `/${locale}/help`, icon: HelpCircle },
+  ];
 
   return (
     <div className="flex h-full w-64 flex-col bg-slate-900 border-r border-slate-800">
@@ -35,10 +38,10 @@ export function Sidebar() {
       <div className="flex flex-1 flex-col overflow-y-auto">
         <nav className="flex-1 space-y-1 px-4 py-4">
           <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-2">
-            Main Menu
+            {dict.navigation.mainMenu}
           </div>
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href !== `/${locale}` && pathname.startsWith(item.href));
             return (
               <Link
                 key={item.name}
@@ -91,7 +94,7 @@ export function Sidebar() {
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-white">Tom Cook</p>
-              <p className="text-xs font-medium text-slate-400 group-hover:text-slate-300">View profile</p>
+              <p className="text-xs font-medium text-slate-400 group-hover:text-slate-300">{dict.navigation.viewProfile}</p>
             </div>
           </div>
         </div>

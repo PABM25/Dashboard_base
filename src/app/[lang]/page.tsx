@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { StatCard } from "@/components/StatCard";
 import {
   DollarSign,
   Users,
   Package,
-  TrendingUp
+  TrendingUp,
+  Download
 } from "lucide-react";
 import {
   BarChart,
@@ -18,6 +20,7 @@ import {
   AreaChart,
   Area
 } from 'recharts';
+import { useTranslation, useLocale } from '@/components/LanguageProvider';
 
 const revenueData = [
   { name: 'Jan', value: 4000 },
@@ -40,16 +43,33 @@ const hrData = [
 ];
 
 export default function Home() {
+  const dict = useTranslation();
+  const locale = useLocale();
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = () => {
+    setDownloading(true);
+    setTimeout(() => {
+      setDownloading(false);
+      alert(locale === 'es' ? 'Reporte descargado' : 'Report downloaded');
+    }, 1000);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Executive Overview</h1>
-          <p className="text-sm text-slate-500">Welcome back! Here&apos;s what&apos;s happening across the organization today.</p>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">{dict.overview.title}</h1>
+          <p className="text-sm text-slate-500">{dict.overview.subtitle}</p>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 bg-white border border-slate-200 text-sm font-medium rounded-lg text-slate-700 hover:bg-slate-50">
-            Download Report
+          <button
+            onClick={handleDownload}
+            disabled={downloading}
+            className="flex items-center px-4 py-2 bg-white border border-slate-200 text-sm font-medium rounded-lg text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+          >
+            <Download className="w-4 h-4 mr-2" />
+            {downloading ? (locale === 'es' ? 'Descargando...' : 'Downloading...') : dict.overview.downloadReport}
           </button>
         </div>
       </div>
@@ -57,32 +77,32 @@ export default function Home() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          title="Total Revenue"
+          title={dict.overview.totalRevenue}
           value="$124,500"
           icon={<DollarSign className="h-5 w-5" />}
           trend={{ value: 12.5, isPositive: true }}
-          description="vs. previous month"
+          description={dict.overview.totalRevenueDesc}
         />
         <StatCard
-          title="Total Employees"
+          title={dict.overview.totalEmployees}
           value="152"
           icon={<Users className="h-5 w-5" />}
           trend={{ value: 3.2, isPositive: true }}
-          description="3 new hires this month"
+          description={dict.overview.totalEmployeesDesc}
         />
         <StatCard
-          title="Active Inventory Items"
+          title={dict.overview.activeInventory}
           value="1,429"
           icon={<Package className="h-5 w-5" />}
           trend={{ value: 1.4, isPositive: false }}
-          description="Across 3 warehouses"
+          description={dict.overview.activeInventoryDesc}
         />
         <StatCard
-          title="Profit Margin"
+          title={dict.overview.profitMargin}
           value="24.8%"
           icon={<TrendingUp className="h-5 w-5" />}
           trend={{ value: 2.1, isPositive: true }}
-          description="vs. previous month"
+          description={dict.overview.profitMarginDesc}
         />
       </div>
 
@@ -91,8 +111,8 @@ export default function Home() {
         {/* Revenue Chart */}
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-4">
-            <h3 className="text-lg font-medium text-slate-900">Revenue Growth</h3>
-            <p className="text-sm text-slate-500">Monthly revenue for the current year</p>
+            <h3 className="text-lg font-medium text-slate-900">{dict.overview.revenueGrowth}</h3>
+            <p className="text-sm text-slate-500">{dict.overview.revenueGrowthDesc}</p>
           </div>
           <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -120,8 +140,8 @@ export default function Home() {
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-medium text-slate-900">Employee Headcount</h3>
-              <p className="text-sm text-slate-500">Organization growth over time</p>
+              <h3 className="text-lg font-medium text-slate-900">{dict.overview.employeeHeadcount}</h3>
+              <p className="text-sm text-slate-500">{dict.overview.employeeHeadcountDesc}</p>
             </div>
           </div>
           <div className="h-80 w-full">
@@ -144,24 +164,24 @@ export default function Home() {
       {/* Recent Activity Table */}
       <div className="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="border-b border-slate-200 px-6 py-4">
-          <h3 className="text-lg font-medium text-slate-900">Recent Cross-Department Activity</h3>
+          <h3 className="text-lg font-medium text-slate-900">{dict.overview.recentActivity}</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-slate-200">
             <thead className="bg-slate-50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Event</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Department</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Date</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.overview.tableEvent}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.overview.tableDepartment}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.overview.tableDate}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.overview.tableStatus}</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-slate-200">
               {[
-                { event: 'Q3 Enterprise Deal Signed', dept: 'Sales', date: 'Today, 10:42 AM', status: 'Completed', color: 'bg-emerald-100 text-emerald-800' },
-                { event: 'Server Restock Order Received', dept: 'Inventory', date: 'Today, 09:15 AM', status: 'Pending Review', color: 'bg-amber-100 text-amber-800' },
-                { event: 'New Senior Developer Onboarded', dept: 'HR', date: 'Yesterday, 02:00 PM', status: 'Completed', color: 'bg-emerald-100 text-emerald-800' },
-                { event: 'Warehouse Audit', dept: 'Inventory', date: 'Yesterday, 11:30 AM', status: 'In Progress', color: 'bg-blue-100 text-blue-800' },
+                { event: 'Q3 Enterprise Deal Signed', dept: 'Sales', date: 'Today, 10:42 AM', status: locale === 'es' ? 'Completado' : 'Completed', color: 'bg-emerald-100 text-emerald-800' },
+                { event: 'Server Restock Order Received', dept: 'Inventory', date: 'Today, 09:15 AM', status: locale === 'es' ? 'Pendiente' : 'Pending Review', color: 'bg-amber-100 text-amber-800' },
+                { event: 'New Senior Developer Onboarded', dept: 'HR', date: 'Yesterday, 02:00 PM', status: locale === 'es' ? 'Completado' : 'Completed', color: 'bg-emerald-100 text-emerald-800' },
+                { event: 'Warehouse Audit', dept: 'Inventory', date: 'Yesterday, 11:30 AM', status: locale === 'es' ? 'En Curso' : 'In Progress', color: 'bg-blue-100 text-blue-800' },
               ].map((item, i) => (
                 <tr key={i}>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{item.event}</td>
