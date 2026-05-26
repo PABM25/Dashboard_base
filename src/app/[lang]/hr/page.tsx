@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { StatCard } from "@/components/StatCard";
 import {
   Users,
@@ -54,12 +56,14 @@ export default function HR() {
     }, 1000);
   };
 
+  const router = useRouter();
+
   const handleAddEmployee = () => {
     setAddingEmployee(true);
     setTimeout(() => {
       setAddingEmployee(false);
-      alert(locale === 'es' ? 'Nuevo empleado añadido' : 'New employee added');
-    }, 1000);
+      router.push(`/${locale}/hr/new`);
+    }, 500);
   };
 
   return (
@@ -82,7 +86,7 @@ export default function HR() {
             disabled={addingEmployee}
             className="px-4 py-2 bg-indigo-600 border border-transparent text-sm font-medium rounded-lg text-white hover:bg-indigo-700 disabled:opacity-50"
           >
-            {addingEmployee ? (locale === 'es' ? 'Añadiendo...' : 'Adding...') : dict.hr.addEmployee}
+            {addingEmployee ? (locale === 'es' ? 'Cargando...' : 'Loading...') : dict.hr.addEmployee}
           </button>
         </div>
       </div>
@@ -183,15 +187,16 @@ export default function HR() {
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.hr.tableDepartment}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.hr.tableType}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.hr.tableDate}</th>
+                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.hr.tableActions}</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-slate-200">
               {[
-                { name: 'Sarah Jenkins', role: 'Senior Frontend Engineer', dept: 'Engineering', type: locale === 'es' ? 'Nueva Contratación' : 'New Hire', date: 'Oct 24, 2023', color: 'bg-emerald-100 text-emerald-800' },
-                { name: 'Michael Chen', role: 'Account Executive', dept: 'Sales', type: locale === 'es' ? 'Promoción' : 'Promotion', date: 'Oct 20, 2023', color: 'bg-blue-100 text-blue-800' },
-                { name: 'Emily Rodriguez', role: 'Marketing Manager', dept: 'Marketing', type: locale === 'es' ? 'Regreso de Licencia' : 'Return from Leave', date: 'Oct 15, 2023', color: 'bg-purple-100 text-purple-800' },
-                { name: 'David Kim', role: 'Customer Success Rep', dept: 'Customer Support', type: locale === 'es' ? 'Nueva Contratación' : 'New Hire', date: 'Oct 12, 2023', color: 'bg-emerald-100 text-emerald-800' },
-                { name: 'Jessica Taylor', role: 'Financial Analyst', dept: 'Finance', type: locale === 'es' ? 'Desvinculación' : 'Offboarding', date: 'Oct 05, 2023', color: 'bg-slate-100 text-slate-800' },
+                { id: '1', name: 'Sarah Jenkins', role: 'Senior Frontend Engineer', dept: 'Engineering', type: locale === 'es' ? 'Nueva Contratación' : 'New Hire', date: 'Oct 24, 2023', color: 'bg-emerald-100 text-emerald-800' },
+                { id: '2', name: 'Michael Chen', role: 'Account Executive', dept: 'Sales', type: locale === 'es' ? 'Promoción' : 'Promotion', date: 'Oct 20, 2023', color: 'bg-blue-100 text-blue-800' },
+                { id: '3', name: 'Emily Rodriguez', role: 'Marketing Manager', dept: 'Marketing', type: locale === 'es' ? 'Regreso de Licencia' : 'Return from Leave', date: 'Oct 15, 2023', color: 'bg-purple-100 text-purple-800' },
+                { id: '4', name: 'David Kim', role: 'Customer Success Rep', dept: 'Customer Support', type: locale === 'es' ? 'Nueva Contratación' : 'New Hire', date: 'Oct 12, 2023', color: 'bg-emerald-100 text-emerald-800' },
+                { id: '5', name: 'Jessica Taylor', role: 'Financial Analyst', dept: 'Finance', type: locale === 'es' ? 'Desvinculación' : 'Offboarding', date: 'Oct 05, 2023', color: 'bg-slate-100 text-slate-800' },
               ].map((item, i) => (
                 <tr key={i} className="hover:bg-slate-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{item.name}</td>
@@ -203,6 +208,11 @@ export default function HR() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">{item.date}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <Link href={`/${locale}/hr/${item.id}/edit`} className="text-indigo-600 hover:text-indigo-900">
+                      {dict.hr.edit}
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

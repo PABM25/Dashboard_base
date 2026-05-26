@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { StatCard } from "@/components/StatCard";
 import {
   Package,
@@ -53,12 +55,14 @@ export default function Inventory() {
     }, 1000);
   };
 
+  const router = useRouter();
+
   const handleAddStock = () => {
     setAddingStock(true);
     setTimeout(() => {
       setAddingStock(false);
-      alert(locale === 'es' ? 'Stock añadido exitosamente' : 'Stock added successfully');
-    }, 1000);
+      router.push(`/${locale}/inventory/new`);
+    }, 500);
   };
 
   return (
@@ -184,15 +188,16 @@ export default function Inventory() {
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.inventory.tableInStock}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.inventory.tableReorderPoint}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.inventory.tableStatus}</th>
+                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">{dict.inventory.tableActions}</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-slate-200">
               {[
-                { sku: 'ELC-001', name: 'MacBook Pro 16"', category: 'Electronics', stock: 5, reorder: 10, status: locale === 'es' ? 'Crítico' : 'Critical' },
-                { sku: 'OFF-042', name: 'Ergonomic Chair', category: 'Furniture', stock: 12, reorder: 15, status: locale === 'es' ? 'Bajo' : 'Low' },
-                { sku: 'ELC-089', name: 'Dell 27" Monitor', category: 'Electronics', stock: 8, reorder: 20, status: locale === 'es' ? 'Crítico' : 'Critical' },
-                { sku: 'SFT-102', name: 'Adobe CC License', category: 'Software', stock: 2, reorder: 5, status: locale === 'es' ? 'Crítico' : 'Critical' },
-                { sku: 'OFF-115', name: 'Standing Desk', category: 'Furniture', stock: 18, reorder: 20, status: locale === 'es' ? 'Bajo' : 'Low' },
+                { id: '1', sku: 'ELC-001', name: 'MacBook Pro 16"', category: 'Electronics', stock: 5, reorder: 10, status: locale === 'es' ? 'Crítico' : 'Critical' },
+                { id: '2', sku: 'OFF-042', name: 'Ergonomic Chair', category: 'Furniture', stock: 12, reorder: 15, status: locale === 'es' ? 'Bajo' : 'Low' },
+                { id: '3', sku: 'ELC-089', name: 'Dell 27" Monitor', category: 'Electronics', stock: 8, reorder: 20, status: locale === 'es' ? 'Crítico' : 'Critical' },
+                { id: '4', sku: 'SFT-102', name: 'Adobe CC License', category: 'Software', stock: 2, reorder: 5, status: locale === 'es' ? 'Crítico' : 'Critical' },
+                { id: '5', sku: 'OFF-115', name: 'Standing Desk', category: 'Furniture', stock: 18, reorder: 20, status: locale === 'es' ? 'Bajo' : 'Low' },
               ].map((item, i) => (
                 <tr key={i} className="hover:bg-slate-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">{item.sku}</td>
@@ -206,6 +211,11 @@ export default function Inventory() {
                     }`}>
                       {item.status}
                     </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <Link href={`/${locale}/inventory/${item.id}/edit`} className="text-indigo-600 hover:text-indigo-900">
+                      {dict.inventory.edit}
+                    </Link>
                   </td>
                 </tr>
               ))}
